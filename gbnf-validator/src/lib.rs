@@ -1,19 +1,19 @@
 use std::{fs, io::Write, path::PathBuf, process::Command};
 
 #[cfg(target_os = "macos")]
-const CLI_BYTES: &[u8] = include_bytes!("../../bin/llama-gbnf-validator");
+const CLI_BYTES: &[u8] = include_bytes!("../../bin/llama-gbnf-validator-macos");
 
-#[cfg(target_os = "macos")]
+#[cfg(target_os = "linux")]
+const CLI_BYTES: &[u8] = include_bytes!("../../bin/llama-gbnf-validator-linux");
+
+#[cfg(not(target_os = "windows"))]
 fn extract_cli_binary() -> std::io::Result<(PathBuf, tempfile::TempDir)> {
-    let file_name = "llama-gbnf-validator";
-
     let dir = tempfile::tempdir()?;
-    let path = dir.path().join(file_name);
+    let path = dir.path().join("llama-gbnf-validator");
 
     let mut file = fs::File::create(&path)?;
     file.write_all(CLI_BYTES)?;
 
-    #[cfg(unix)]
     {
         use std::os::unix::fs::PermissionsExt;
         let mut perms = fs::metadata(&path)?.permissions();
@@ -24,7 +24,7 @@ fn extract_cli_binary() -> std::io::Result<(PathBuf, tempfile::TempDir)> {
     Ok((path, dir))
 }
 
-#[cfg(not(target_os = "macos"))]
+#[cfg(target_os = "windows")]
 fn extract_cli_binary() -> std::io::Result<(PathBuf, tempfile::TempDir)> {
     Err(std::io::Error::new(
         std::io::ErrorKind::Unsupported,
