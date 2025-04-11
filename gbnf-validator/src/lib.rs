@@ -14,6 +14,7 @@ fn extract_cli_binary() -> std::io::Result<(PathBuf, tempfile::TempDir)> {
     let mut file = fs::File::create(&path)?;
     file.write_all(CLI_BYTES)?;
 
+    #[cfg(unix)]
     {
         use std::os::unix::fs::PermissionsExt;
         let mut perms = fs::metadata(&path)?.permissions();

@@ -1584,6 +1584,8 @@ name = "gbnf-validator-app"
 version = "0.1.0"
 dependencies = [
  "dioxus",
+ "gbnf-validator",
+ "once_cell",
 ]
 
 [[package]]
