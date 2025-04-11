@@ -1,8 +1,18 @@
-[package]
-name = "gbnf-validator"
-version = "0.1.0"
-edition = "2024"
+[workspace]
+resolver = "2"
+members = [
+  "gbnf-validator",
+  "gbnf-validator-app",
+]
 
-[dependencies]
-anyhow = "1.0.97"
-tempfile = "3.19.1"
+[profile]
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"

@@ -1,7 +1,7 @@
 use std::{fs, io::Write, path::PathBuf, process::Command};
 
 #[cfg(target_os = "macos")]
-const CLI_BYTES: &[u8] = include_bytes!("../bin/llama-gbnf-validator");
+const CLI_BYTES: &[u8] = include_bytes!("../../bin/llama-gbnf-validator");
 
 #[cfg(target_os = "macos")]
 fn extract_cli_binary() -> std::io::Result<(PathBuf, tempfile::TempDir)> {

@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 tasks:
   pre:
@@ -10,7 +10,7 @@ tasks:
     dir: llama.cpp/build
     cmds:
       - task: pre
-      - cmake ..
+      - cmake .. -DLLAMA_CURL=OFF
       - cmake --build . --target llama-gbnf-validator
       - task: post
   post:
